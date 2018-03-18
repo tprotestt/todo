@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, StatusBar } from 'react-native';
 import { View, Text } from 'native-base';
-
+import AddTodoButton from './AddTodoButton'
 import TodoModel from './../api/todos';
 import Header from '../components/Header';
 import COLORS from '../constants/Colors';
@@ -41,6 +41,7 @@ export default class TodosContainer extends React.Component {
                 <StatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
                 <View style={styles.center}>
                     <Text>Todos Container</Text>
+                    <AddTodoButton />
                 </View>
             </View>
         );
