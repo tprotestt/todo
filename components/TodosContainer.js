@@ -5,6 +5,8 @@ import AddTodoButton from './AddTodoButton'
 import TodoModel from './../api/todos';
 import Header from '../components/Header';
 import COLORS from '../constants/Colors';
+import { ScrollView } from 'react-native-gesture-handler';
+import AddTodo from './AddTodo';
 
 const styles = StyleSheet.create({
     container: {
@@ -29,6 +31,9 @@ const styles = StyleSheet.create({
 
 // will render todos based on the active screen: all, active or completed
 export default class TodosContainer extends React.Component {
+    state = {
+        addingTodo: false,
+    };
     componentDidMount() {
         // includes the methods for creation, updation and deletion
         this.api = new TodoModel('react-todos');
@@ -39,11 +44,28 @@ export default class TodosContainer extends React.Component {
             <View style={styles.container}>
                 <Header />
                 <StatusBar backgroundColor={COLORS.primary} barStyle="light-content" />
-                <View style={styles.center}>
-                    <Text>Todos Container</Text>
-                    <AddTodoButton />
-                </View>
+                <ScrollView>
+                    {this.state.addingTodo ? (
+                        <View style={styles.row}>
+                            <AddTodo
+                                onAdd={(todo) => {
+                                    this.setState({ addingTodo: false });
+                                    this.api.add(todo);
+                                }}
+                                onCancelDelete={() => this.setState({ addingTodo: false })}
+                                onBlur={() => this.setState({ addingTodo: false})}
+                            />
+                        </View>
+                    ) : null}
+                </ScrollView>
+                <AddtodoButton onPress={() => this.setState({ addingTodo: true })} />
             </View>
-        );
+             );   
+            <View style={styles.center}>
+                <Text>Todos Container</Text>
+                <AddTodoButton />
+            </View>
+            
+       
     }
 }

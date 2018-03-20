@@ -4,7 +4,7 @@ import { Icon, Fab } from 'native-base';
 import COLORS from '../constants/Colors';
 
 const propTypes = {
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func,
 };
 
 // renders the add todo floating button
