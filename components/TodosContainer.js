@@ -58,7 +58,7 @@ export default class TodosContainer extends React.Component {
                         </View>
                     ) : null}
                 </ScrollView>
-                <AddtodoButton onPress={() => this.setState({ addingTodo: true })} />
+                <AddTodoButton onPress={() => this.setState({ addingTodo: true })} />
             </View>
              );   
             <View style={styles.center}>

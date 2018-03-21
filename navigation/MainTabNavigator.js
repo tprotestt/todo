@@ -2,7 +2,7 @@
 import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
-
+import AddTodoButton from '../components/AddTodoButton'
 import Colors from '../constants/Colors';
 import CONSTANTS from '../constants';
 import TodosScreen from '../screens/TodosScreen';

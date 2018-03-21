@@ -58,7 +58,7 @@ class AddTodo extends Component {
             paddingTop: 5,
         }}
       >
-      <Checkbox checked={complete} onPress={() => this.setStateUtil('completed, !completed')} />
+      <CheckBox checked={completed} onPress={() => this.setStateUtil('completed', !completed)} />
       <Body
         style={{
           flex: 1,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { Header, Body, Title } from 'native-base';
-
+import AddTodoButton from './AddTodoButton'
 import COLORS from '../constants/Colors';
 
 // static app header
