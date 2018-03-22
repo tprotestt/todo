@@ -7,7 +7,9 @@ import Header from '../components/Header';
 import COLORS from '../constants/Colors';
 import { ScrollView } from 'react-native-gesture-handler';
 import AddTodo from './AddTodo';
-
+import { ReactiveList } from '@appbaseio/reactivesearch-native';
+import {FlatList} from 'react-native';
+import CONSTANTS from '../constants';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -31,6 +33,59 @@ const styles = StyleSheet.create({
 
 // will render todos based on the active screen: all, active or completed
 export default class TodosContainer extends React.Component {
+    onAllData = (todos, streamData) => {
+        const filterData = this.filterTodosData(todos);
+
+        return(
+            <FlatList  
+                style={{ width: '100%', top: 15 }}
+                data={filteredData}
+                keyExtractor={item => item._id}
+                renderItem={({item: todo}) => (
+                        <Text>{todo.title}</Text>
+                )}
+            />
+        );
+    };
+    filterTodosData = (todosData) => {
+        const { screen } = this.props;
+
+        switch (screen) {
+            case CONSTANTS.ALL:
+                return todosData;
+            case CONSTANTS.ACTIVE:
+            return todosData.filter(todo => todo.completed);
+        }
+
+        return todosData;
+    };
+    render() {
+        return (
+            <View style={styles.container}>
+                <Header />
+                <StatusBar backgrounColor={COLORS.primary} barStyle="light-content" />
+                <ScrollView>
+                    <ReactiveList
+                        onAllData
+                        componentID="ReactiveList"
+                        defaultQuery={() => ({
+                            query: {
+                                match_all: {},
+                            
+                            },
+                        })}
+                        stream 
+                        onAllData={this.onAllDate}
+                        dataField="title"
+                        showResultStats={false}
+                        pagination={false}
+                    
+                    />
+                </ScrollView>
+                <AddTodoButton onPress={() => this.setState({addingTodo : true })} />
+            </View>
+        );
+    }
     state = {
         addingTodo: false,
     };
